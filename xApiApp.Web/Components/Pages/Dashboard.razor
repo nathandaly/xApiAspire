@@ -1,0 +1,254 @@
+@page "/"
+@using xApiApp.Web.Services
+@using xApiApp.Web.Models
+@inject XApiClient XApiClient
+@inject ILogger<Dashboard> Logger
+@rendermode InteractiveServer
+@implements IAsyncDisposable
+
+@namespace xApiApp.Web.Components.Pages
+
+<PageTitle>xAPI Dashboard</PageTitle>
+
+<div class="min-h-screen bg-background">
+    <div class="border-b">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tight">xAPI Learning Record Store</h1>
+                    <p class="text-muted-foreground mt-1">Real-time statement monitoring dashboard</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <div class="h-2 w-2 rounded-full @(isConnected ? "bg-green-500" : "bg-red-500") animate-pulse"></div>
+                        <span class="text-sm text-muted-foreground">@(isConnected ? "Connected" : "Disconnected")</span>
+                    </div>
+                    <button @onclick="ToggleAutoRefresh" class="px-4 py-2 text-sm font-medium rounded-md border bg-background hover:bg-accent">
+                        @(autoRefresh ? "Pause" : "Resume")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6">
+        <!-- Stats Cards -->
+        <div class="grid gap-4 md:grid-cols-4 mb-6">
+            <div class="rounded-lg border bg-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-muted-foreground">Total Statements</p>
+                        <p class="text-2xl font-bold">@totalStatements</p>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-lg border bg-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-muted-foreground">Unique Actors</p>
+                        <p class="text-2xl font-bold">@uniqueActors</p>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-lg border bg-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-muted-foreground">Unique Verbs</p>
+                        <p class="text-2xl font-bold">@uniqueVerbs</p>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                        <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-lg border bg-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-muted-foreground">Last Updated</p>
+                        <p class="text-2xl font-bold">@lastUpdateTime.ToString("HH:mm:ss")</p>
+                    </div>
+                    <div class="h-12 w-12 rounded-full bg-purple-500/10 flex items-center justify-center">
+                        <svg class="h-6 w-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Endpoints Card -->
+        <div class="rounded-lg border bg-card p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">API Endpoints</h2>
+            <div class="grid gap-4 md:grid-cols-2">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono bg-muted px-2 py-1 rounded">GET</span>
+                        <code class="text-sm">/xapi/about</code>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono bg-muted px-2 py-1 rounded">POST</span>
+                        <code class="text-sm">/xapi/statements</code>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono bg-muted px-2 py-1 rounded">PUT</span>
+                        <code class="text-sm">/xapi/statements?statementId={id}</code>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono bg-muted px-2 py-1 rounded">GET</span>
+                        <code class="text-sm">/xapi/statements</code>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono bg-muted px-2 py-1 rounded">GET</span>
+                        <code class="text-sm">/xapi/statements?statementId={id}</code>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono bg-muted px-2 py-1 rounded">GET</span>
+                        <code class="text-sm">/health</code>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 pt-4 border-t">
+                <p class="text-sm text-muted-foreground">
+                    <strong>Base URL:</strong> <code>https+http://apiservice</code> (via Aspire service discovery)
+                </p>
+            </div>
+        </div>
+
+        <!-- Statements List -->
+        <div class="rounded-lg border bg-card">
+            <div class="p-6 border-b">
+                <h2 class="text-xl font-semibold">Recent Statements</h2>
+                <p class="text-sm text-muted-foreground mt-1">Live feed of xAPI statements</p>
+            </div>
+            <div class="divide-y">
+                @if (statements.Count == 0)
+                {
+                    <div class="p-12 text-center">
+                        <p class="text-muted-foreground">No statements yet. Statements will appear here as they are received.</p>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var statement in statements)
+                    {
+                        <div class="p-6 hover:bg-muted/50 transition-colors">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <span class="text-xs font-mono text-muted-foreground">@statement.Id?.Substring(0, 8)...</span>
+                                        <span class="text-xs px-2 py-1 rounded bg-primary/10 text-primary">@statement.Verb?.Display?.Values.FirstOrDefault() ?? statement.Verb?.Id</span>
+                                        @if (statement.Result?.Success == true)
+                                        {
+                                            <span class="text-xs px-2 py-1 rounded bg-green-500/10 text-green-500">Success</span>
+                                        }
+                                    </div>
+                                    <p class="text-sm mb-1">
+                                        <span class="font-medium">@(statement.Actor?.Name ?? statement.Actor?.Mbox ?? "Unknown")</span>
+                                        <span class="text-muted-foreground">@statement.Verb?.Display?.Values.FirstOrDefault()</span>
+                                        <span class="text-muted-foreground">@statement.Object?.Id</span>
+                                    </p>
+                                    @if (statement.Result?.Score != null)
+                                    {
+                                        <p class="text-xs text-muted-foreground mt-1">
+                                            Score: @(statement.Result.Score.Scaled?.ToString("P0") ?? statement.Result.Score.Raw?.ToString())
+                                        </p>
+                                    }
+                                    <p class="text-xs text-muted-foreground mt-2">
+                                        @statement.Stored?.ToString("yyyy-MM-dd HH:mm:ss UTC")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Statement> statements = new();
+    private bool autoRefresh = true;
+    private bool isConnected = true;
+    private Timer? refreshTimer;
+    private int totalStatements = 0;
+    private int uniqueActors = 0;
+    private int uniqueVerbs = 0;
+    private DateTime lastUpdateTime = DateTime.Now;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadStatements();
+        StartAutoRefresh();
+    }
+
+    private async Task LoadStatements()
+    {
+        try
+        {
+            var result = await XApiClient.GetStatementsAsync(limit: 50, ascending: false);
+            if (result != null)
+            {
+                statements = result.Statements;
+                UpdateStats();
+                lastUpdateTime = DateTime.Now;
+                isConnected = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error loading statements");
+            isConnected = false;
+        }
+        StateHasChanged();
+    }
+
+    private void UpdateStats()
+    {
+        totalStatements = statements.Count;
+        uniqueActors = statements.Select(s => s.Actor?.Mbox ?? s.Actor?.Name).Distinct().Count();
+        uniqueVerbs = statements.Select(s => s.Verb?.Id).Distinct().Count();
+    }
+
+    private void StartAutoRefresh()
+    {
+        refreshTimer = new Timer(async _ =>
+        {
+            if (autoRefresh)
+            {
+                await InvokeAsync(async () =>
+                {
+                    await LoadStatements();
+                });
+            }
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+    }
+
+    private void ToggleAutoRefresh()
+    {
+        autoRefresh = !autoRefresh;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        refreshTimer?.Dispose();
+    }
+}
+

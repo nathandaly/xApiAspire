@@ -1,0 +1,17 @@
+﻿@inherits LayoutComponentBase
+
+<div class="min-h-screen bg-background">
+    <main>
+        @Body
+    </main>
+</div>
+
+<div id="blazor-error-ui" class="fixed bottom-0 left-0 right-0 z-50 bg-destructive text-destructive-foreground p-4 shadow-lg">
+    <div class="container mx-auto flex items-center justify-between">
+        <span>An unhandled error has occurred.</span>
+        <div class="flex gap-2">
+            <a href="" class="underline">Reload</a>
+            <button class="underline" onclick="document.getElementById('blazor-error-ui').style.display='none'">Dismiss</button>
+        </div>
+    </div>
+</div>

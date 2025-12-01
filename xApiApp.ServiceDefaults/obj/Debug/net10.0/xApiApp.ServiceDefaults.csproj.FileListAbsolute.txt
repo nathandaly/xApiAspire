@@ -1,0 +1,12 @@
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\bin\Debug\net10.0\xApiApp.ServiceDefaults.deps.json
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\bin\Debug\net10.0\xApiApp.ServiceDefaults.dll
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\bin\Debug\net10.0\xApiApp.ServiceDefaults.pdb
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.csproj.AssemblyReference.cache
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.AssemblyInfoInputs.cache
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.AssemblyInfo.cs
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.csproj.CoreCompileInputs.cache
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.dll
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\refint\xApiApp.ServiceDefaults.dll
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.pdb
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\ref\xApiApp.ServiceDefaults.dll
