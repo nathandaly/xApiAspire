@@ -1,7 +1,9 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using xApiApp.ApiService.Converters;
+using xApiApp.ApiService.Data;
 using xApiApp.ApiService.Middleware;
 using xApiApp.ApiService.Models;
 using xApiApp.ApiService.Services;
@@ -13,7 +15,17 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
-builder.Services.AddSingleton<IStatementService, StatementService>();
+
+// Add Entity Framework Core with SQLite
+var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "xapi-lrs.db");
+builder.Services.AddDbContext<XApiDbContext>(options =>
+    options.UseSqlite($"Data Source={dbPath}"));
+
+// Register services
+builder.Services.AddScoped<IAgentService, AgentService>();
+builder.Services.AddScoped<IVerbService, VerbService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IStatementService, StatementService>();
 
 // Configure JSON options for xAPI
 // Note: xAPI uses exact property names (objectType, mbox_sha1sum, etc.), not camelCase
@@ -28,6 +40,13 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+// Ensure database is created
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<XApiDbContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
