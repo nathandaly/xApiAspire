@@ -44,7 +44,7 @@ app.MapGet("/xapi/about", () =>
 {
     return new AboutResponse
     {
-        Version = ["1.0.3"],
+        Version = ["2.0.0"],
         Extensions = new Dictionary<string, object>
         {
             ["name"] = "xApiApp LRS",

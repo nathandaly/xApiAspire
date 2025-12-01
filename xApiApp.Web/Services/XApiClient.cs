@@ -33,7 +33,7 @@ public class XApiClient
         try
         {
             _httpClient.DefaultRequestHeaders.Remove("X-Experience-API-Version");
-            _httpClient.DefaultRequestHeaders.Add("X-Experience-API-Version", "1.0.3");
+            _httpClient.DefaultRequestHeaders.Add("X-Experience-API-Version", "2.0.0");
             
             var response = await _httpClient.PostAsJsonAsync("/xapi/statements", statement);
             response.EnsureSuccessStatusCode();
@@ -51,7 +51,7 @@ public class XApiClient
         try
         {
             _httpClient.DefaultRequestHeaders.Remove("X-Experience-API-Version");
-            _httpClient.DefaultRequestHeaders.Add("X-Experience-API-Version", "1.0.3");
+            _httpClient.DefaultRequestHeaders.Add("X-Experience-API-Version", "2.0.0");
             
             var url = $"/xapi/statements?limit={limit}&ascending={ascending}";
             return await _httpClient.GetFromJsonAsync<StatementResult>(url);
@@ -68,7 +68,7 @@ public class XApiClient
         try
         {
             _httpClient.DefaultRequestHeaders.Remove("X-Experience-API-Version");
-            _httpClient.DefaultRequestHeaders.Add("X-Experience-API-Version", "1.0.3");
+            _httpClient.DefaultRequestHeaders.Add("X-Experience-API-Version", "2.0.0");
             
             return await _httpClient.GetFromJsonAsync<Statement>($"/xapi/statements?statementId={statementId}");
         }

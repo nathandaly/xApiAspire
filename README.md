@@ -223,7 +223,7 @@ Returns information about the LRS, including supported xAPI versions.
 **Response:**
 ```json
 {
-  "version": ["1.0.3"],
+  "version": ["2.0.0"],
   "extensions": {
     "name": "xApiApp LRS",
     "description": "A .NET 10 implementation of an xAPI Learning Record Store"
@@ -237,7 +237,7 @@ Stores one or more statements. Can accept a single statement object or an array 
 
 **Request Headers:**
 ```
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 Content-Type: application/json
 ```
 
@@ -404,7 +404,7 @@ This configuration:
 
 ```bash
 curl -X POST http://localhost:5532/xapi/statements \
-  -H "X-Experience-API-Version: 1.0.3" \
+  -H "X-Experience-API-Version: 2.0.0" \
   -H "Content-Type: application/json" \
   -d '{
     "actor": {
@@ -436,14 +436,14 @@ curl -X POST http://localhost:5532/xapi/statements \
 
 ```bash
 curl -X GET "http://localhost:5532/xapi/statements?limit=10" \
-  -H "X-Experience-API-Version: 1.0.3"
+  -H "X-Experience-API-Version: 2.0.0"
 ```
 
 ### Filtering by Agent
 
 ```bash
 curl -X GET "http://localhost:5532/xapi/statements?agent=%7B%22objectType%22%3A%22Agent%22%2C%22mbox%22%3A%22mailto%3Alearner%40example.com%22%7D" \
-  -H "X-Experience-API-Version: 1.0.3"
+  -H "X-Experience-API-Version: 2.0.0"
 ```
 
 ## 🧪 Testing
@@ -461,7 +461,7 @@ See `xApiApp.ApiService/xapi-examples.http` for example HTTP requests you can us
 
 ## 📚 xAPI Specification
 
-This implementation follows the [xAPI Specification 1.0.3](https://github.com/adlnet/xAPI-Spec). Key features:
+This implementation follows the [xAPI Specification 2.0](https://opensource.ieee.org/xapi/xapi-base-standard-documentation). Key features:
 
 - ✅ Statement storage and retrieval
 - ✅ Statement immutability
@@ -517,7 +517,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📖 Resources
 
-- [xAPI Specification](https://github.com/adlnet/xAPI-Spec)
+- [xAPI Specification 2.0](https://opensource.ieee.org/xapi/xapi-base-standard-documentation) - IEEE xAPI Base Standard
+- [xAPI Specification 1.0.x](https://github.com/adlnet/xAPI-Spec) - Legacy ADL xAPI Specification (for reference)
 - [.NET Aspire Documentation](https://learn.microsoft.com/dotnet/aspire/)
 - [Blazor Documentation](https://learn.microsoft.com/aspnet/core/blazor/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)

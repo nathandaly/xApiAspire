@@ -2,11 +2,11 @@
 
 ### Get LRS Information
 GET http://localhost:5000/xapi/about
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 
 ### POST Single Statement
 POST http://localhost:5000/xapi/statements
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ### POST Batch Statements
 POST http://localhost:5000/xapi/statements
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 Content-Type: application/json
 
 [
@@ -81,7 +81,7 @@ Content-Type: application/json
 
 ### PUT Statement with ID
 PUT http://localhost:5000/xapi/statements?statementId=12345678-1234-5678-1234-567812345678
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 Content-Type: application/json
 
 {
@@ -105,21 +105,21 @@ Content-Type: application/json
 
 ### GET Single Statement by ID
 GET http://localhost:5000/xapi/statements?statementId=12345678-1234-5678-1234-567812345678
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 
 ### GET Statements with Filters
 GET http://localhost:5000/xapi/statements?agent={"objectType":"Agent","mbox":"mailto:test@example.com"}&verb=http://adlnet.gov/expapi/verbs/completed&limit=10
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 
 ### GET Statements by Activity
 GET http://localhost:5000/xapi/statements?activity=http://example.com/xapi/activities/myactivity&limit=20&ascending=false
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 
 ### GET Statements Since Timestamp
 GET http://localhost:5000/xapi/statements?since=2024-01-01T00:00:00Z&limit=50
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 
 ### GET All Statements
 GET http://localhost:5000/xapi/statements?limit=100
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 

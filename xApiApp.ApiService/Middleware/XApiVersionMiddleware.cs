@@ -5,7 +5,7 @@ public class XApiVersionMiddleware
     private readonly RequestDelegate _next;
     private const string XApiVersionHeader = "X-Experience-API-Version";
     private const string XApiConsistentThroughHeader = "X-Experience-API-Consistent-Through";
-    private const string SupportedVersion = "1.0.3";
+    private const string SupportedVersion = "2.0.0";
 
     public XApiVersionMiddleware(RequestDelegate next)
     {
@@ -30,17 +30,17 @@ public class XApiVersionMiddleware
                 return;
             }
 
-            // Normalize version (accept "1.0" as "1.0.0")
-            if (requestedVersion == "1.0")
+            // Normalize version (accept "2.0" as "2.0.0")
+            if (requestedVersion == "2.0")
             {
-                requestedVersion = "1.0.0";
+                requestedVersion = "2.0.0";
             }
 
-            // Validate version
-            if (!requestedVersion.StartsWith("1.0."))
+            // Validate version - support 2.0.x versions
+            if (!requestedVersion.StartsWith("2.0."))
             {
                 context.Response.StatusCode = 400;
-                await context.Response.WriteAsync($"Unsupported xAPI version: {requestedVersion}. Supported versions: 1.0.x");
+                await context.Response.WriteAsync($"Unsupported xAPI version: {requestedVersion}. Supported versions: 2.0.x");
                 return;
             }
         }

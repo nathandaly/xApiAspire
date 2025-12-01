@@ -1,6 +1,6 @@
 # xAPI Learning Record Store (LRS) API
 
-A .NET 10 implementation of an xAPI (Experience API) Learning Record Store based on the [xAPI Specification](https://github.com/adlnet/xAPI-Spec).
+A .NET 10 implementation of an xAPI (Experience API) Learning Record Store based on the [xAPI Specification 2.0](https://opensource.ieee.org/xapi/xapi-base-standard-documentation).
 
 ## Features
 
@@ -25,7 +25,7 @@ A .NET 10 implementation of an xAPI (Experience API) Learning Record Store based
 ## Request Headers
 
 All requests (except `/xapi/about`) must include:
-- `X-Experience-API-Version: 1.0.3` (or any 1.0.x version)
+- `X-Experience-API-Version: 2.0.0` (or any 2.0.x version)
 - `Content-Type: application/json` (for POST/PUT requests)
 
 ## Example Usage
@@ -34,7 +34,7 @@ All requests (except `/xapi/about`) must include:
 
 ```http
 POST /xapi/statements
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 Content-Type: application/json
 
 {
@@ -60,14 +60,14 @@ Content-Type: application/json
 
 ```http
 GET /xapi/statements?limit=10&ascending=false
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 ```
 
 ### Filter by Agent
 
 ```http
 GET /xapi/statements?agent={"objectType":"Agent","mbox":"mailto:test@example.com"}
-X-Experience-API-Version: 1.0.3
+X-Experience-API-Version: 2.0.0
 ```
 
 ## Query Parameters
@@ -101,7 +101,7 @@ Optional properties:
 - `timestamp` - When the event occurred (set to current time if not provided)
 - `stored` - When the statement was stored (set by LRS)
 - `authority` - Who is asserting this statement (set by LRS)
-- `version` - xAPI version (defaults to 1.0.0)
+- `version` - xAPI version (defaults to 2.0.0)
 - `attachments` - Array of attachment objects
 
 ## Implementation Notes
