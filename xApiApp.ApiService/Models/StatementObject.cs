@@ -5,12 +5,7 @@ namespace xApiApp.ApiService.Models;
 /// <summary>
 /// Represents the Object of an xAPI Statement - can be Activity, Agent, StatementRef, or SubStatement
 /// </summary>
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "objectType")]
-[JsonDerivedType(typeof(Activity), "Activity")]
-[JsonDerivedType(typeof(AgentAsObject), "Agent")]
-[JsonDerivedType(typeof(GroupAsObject), "Group")]
-[JsonDerivedType(typeof(StatementRef), "StatementRef")]
-[JsonDerivedType(typeof(SubStatement), "SubStatement")]
+[JsonConverter(typeof(Converters.StatementObjectConverter))]
 public abstract class StatementObject
 {
     [JsonPropertyName("objectType")]

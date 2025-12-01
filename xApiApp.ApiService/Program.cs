@@ -1,5 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Logging;
+using xApiApp.ApiService.Converters;
 using xApiApp.ApiService.Middleware;
 using xApiApp.ApiService.Models;
 using xApiApp.ApiService.Services;
@@ -11,7 +13,7 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
-builder.Services.AddScoped<IStatementService, StatementService>();
+builder.Services.AddSingleton<IStatementService, StatementService>();
 
 // Configure JSON options for xAPI
 // Note: xAPI uses exact property names (objectType, mbox_sha1sum, etc.), not camelCase
@@ -116,7 +118,12 @@ statementsGroup.MapPost("", async (HttpRequest request, IStatementService statem
     }
     catch (Exception ex)
     {
-        return Results.Problem(ex.Message, statusCode: 500);
+        // Log the full exception for debugging
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Error processing statement: {Message}", ex.Message);
+        return Results.Problem(
+            detail: ex.ToString(),
+            statusCode: 500);
     }
 })
 .WithName("PostStatements")
@@ -181,7 +188,12 @@ statementsGroup.MapPut("", async (HttpRequest request, IStatementService stateme
     }
     catch (Exception ex)
     {
-        return Results.Problem(ex.Message, statusCode: 500);
+        // Log the full exception for debugging
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Error processing statement: {Message}", ex.Message);
+        return Results.Problem(
+            detail: ex.ToString(),
+            statusCode: 500);
     }
 })
 .WithName("PutStatement")
@@ -300,7 +312,12 @@ statementsGroup.MapGet("", async (
     }
     catch (Exception ex)
     {
-        return Results.Problem(ex.Message, statusCode: 500);
+        // Log the full exception for debugging
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Error processing statement: {Message}", ex.Message);
+        return Results.Problem(
+            detail: ex.ToString(),
+            statusCode: 500);
     }
 })
 .WithName("GetStatements")

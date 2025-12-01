@@ -97,3 +97,4 @@ C:\Users\initj\Sites\xApiApp\xApiApp.AppHost\obj\Debug\net10.0\refint\xApiApp.Ap
 C:\Users\initj\Sites\xApiApp\xApiApp.AppHost\obj\Debug\net10.0\xApiApp.AppHost.pdb
 C:\Users\initj\Sites\xApiApp\xApiApp.AppHost\obj\Debug\net10.0\xApiApp.AppHost.genruntimeconfig.cache
 C:\Users\initj\Sites\xApiApp\xApiApp.AppHost\obj\Debug\net10.0\ref\xApiApp.AppHost.dll
+C:\Users\initj\Sites\xApiApp\xApiApp.AppHost\obj\Debug\net10.0\xApiApp.AppHost.sourcelink.json

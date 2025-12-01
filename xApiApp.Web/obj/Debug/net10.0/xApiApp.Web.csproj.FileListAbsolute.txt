@@ -107,3 +107,4 @@ C:\Users\initj\Sites\xApiApp\xApiApp.Web\obj\Debug\net10.0\xApiApp.Web.pdb
 C:\Users\initj\Sites\xApiApp\xApiApp.Web\obj\Debug\net10.0\xApiApp.Web.genruntimeconfig.cache
 C:\Users\initj\Sites\xApiApp\xApiApp.Web\obj\Debug\net10.0\ref\xApiApp.Web.dll
 C:\Users\initj\Sites\xApiApp\xApiApp.Web\obj\Debug\net10.0\compressed\j89pn06j4q-{0}-ktvnzb48zk-ktvnzb48zk.gz
+C:\Users\initj\Sites\xApiApp\xApiApp.Web\obj\Debug\net10.0\xApiApp.Web.sourcelink.json

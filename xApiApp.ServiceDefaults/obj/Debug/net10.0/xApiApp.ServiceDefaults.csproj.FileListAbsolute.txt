@@ -10,3 +10,4 @@ C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.S
 C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\refint\xApiApp.ServiceDefaults.dll
 C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.pdb
 C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\ref\xApiApp.ServiceDefaults.dll
+C:\Users\initj\Sites\xApiApp\xApiApp.ServiceDefaults\obj\Debug\net10.0\xApiApp.ServiceDefaults.sourcelink.json

@@ -135,7 +135,7 @@ public class StatementService : IStatementService
 
         // Filter statements
         var filtered = _statements.Values
-            .Where(s => !IsVoided(s.Id!))
+            .Where(s => s.Id != null && !IsVoided(s.Id))
             .AsEnumerable();
 
         // Apply filters

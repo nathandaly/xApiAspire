@@ -5,9 +5,7 @@ namespace xApiApp.ApiService.Models;
 /// <summary>
 /// Represents an Actor (Agent or Group) in an xAPI Statement
 /// </summary>
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "objectType")]
-[JsonDerivedType(typeof(Agent), "Agent")]
-[JsonDerivedType(typeof(Group), "Group")]
+[JsonConverter(typeof(Converters.ActorConverter))]
 public abstract class Actor
 {
     [JsonPropertyName("objectType")]

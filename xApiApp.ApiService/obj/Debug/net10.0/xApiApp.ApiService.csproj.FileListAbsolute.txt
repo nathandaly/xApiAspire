@@ -55,3 +55,4 @@ C:\Users\initj\Sites\xApiApp\xApiApp.ApiService\obj\Debug\net10.0\refint\xApiApp
 C:\Users\initj\Sites\xApiApp\xApiApp.ApiService\obj\Debug\net10.0\xApiApp.ApiService.pdb
 C:\Users\initj\Sites\xApiApp\xApiApp.ApiService\obj\Debug\net10.0\xApiApp.ApiService.genruntimeconfig.cache
 C:\Users\initj\Sites\xApiApp\xApiApp.ApiService\obj\Debug\net10.0\ref\xApiApp.ApiService.dll
+C:\Users\initj\Sites\xApiApp\xApiApp.ApiService\obj\Debug\net10.0\xApiApp.ApiService.sourcelink.json
